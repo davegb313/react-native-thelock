@@ -9,5 +9,17 @@ export const Login = props =>
       password: props.password,
     }),
   }).then(
+    response => response.status >= 400 ? response.json().then(err=> Promise.reject(err)) : response.json(),
+  );
+
+export const SignUp = props =>
+  fetch(networkBase + '/signup', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      email: props.email,
+      password: props.password,
+    }),
+  }).then(
     response => response.status >= 400 ? Promise.reject() : response.json(),
   );
